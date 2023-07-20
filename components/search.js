@@ -1,3 +1,6 @@
+'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -27,8 +30,32 @@ const buttonStyles = {
 };
 
 export default function Search() {
+  const router = useRouter();
+  const [input, setInput] = useState('');
+  const [randomSearchLoading, setRandomSearchLoading] = useState(false);
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    
+    if (!input.trim()) return;
+    router.push(`/search/web?searchTerm=${term}`);
+  }
+
+  async function randomSearch() {
+    setRandomSearchLoading(true);
+
+    const response = await fetch('https://random-word-api.herokuapp.com/word')
+      .then((res) => res.json())
+      .then((data) => data[0]);
+
+    if (!response) return;
+
+    router.push(`/search/web?searchTerm=${response}`);
+    setRandomSearchLoading(false);
+  }
+
   return (
-    <form className="search">
+    <form className="search" onSubmit={handleSubmit}>
         <FormControl sx={{ m: 1.5, width: '60ch' }} variant="outlined">
             <OutlinedInput
                 className="search-field"
@@ -47,11 +74,25 @@ export default function Search() {
                     }
                   }
                 }}
+                onChange={(e) => setInput(e.target.value)}
+                value={input}
             />
         </FormControl>
         <Grid container justifyContent="center">
-          <Button sx={buttonStyles}>Search</Button>
-          <Button sx={buttonStyles}>I'm Feeling Lucky</Button>
+          <Button sx={buttonStyles} onClick={handleSubmit}>Search</Button>
+          <Button sx={buttonStyles} 
+            disabled={randomSearchLoading}
+            className="flex items-center justify-center disabled:opacity-80" 
+            onClick={randomSearch}>
+              I'm Feeling Lucky 
+                {randomSearchLoading && <img
+                  src="spinner.svg"
+                  className="spinner"
+                  alt="loading..."
+                  width="20"
+                  height="20"
+                />}
+          </Button>
         </Grid>
     </form>
   )
