@@ -1,6 +1,6 @@
-import HomeHeader from '@/components/homeHeader'
-import Logo from '@/components/logo'
-import Search from '@/components/search'
+import HomeHeader from '@/components/homeHeader';
+import Logo from '@/components/logo';
+import Search from '@/components/search';
 
 export default function Home() {
   return (

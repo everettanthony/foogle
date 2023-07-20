@@ -56,7 +56,7 @@ export default function Search() {
 
   return (
     <form className="search" onSubmit={handleSubmit}>
-        <FormControl sx={{ m: 1.5, width: '60ch' }} variant="outlined">
+        <FormControl sx={{ m: 1.5, mt: 2, width: '60ch' }} variant="outlined">
             <OutlinedInput
                 className="search-field"
                 id="outlined-adornment-search"
