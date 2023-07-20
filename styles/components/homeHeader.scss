@@ -1,0 +1,17 @@
+.hdr {
+    width: 100%;
+
+    &-link {
+        color: rgba(0,0,0,.87);
+        font-size: 14px;  
+        text-decoration: none;
+
+        &:not(:last-child) {
+            margin-right: 1rem;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
