@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -8,8 +8,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function SearchBox() {
+    const searchParams = useSearchParams();
     const router = useRouter();
-    const [input, setInput] = useState('');
+    const searchTerm = searchParams.get('searchTerm');
+    const [input, setInput] = useState(searchTerm || '');
 
     return (
         <form className="search">

@@ -38,7 +38,7 @@ export default function Search() {
     evt.preventDefault();
     
     if (!input.trim()) return;
-    router.push(`/search/web?searchTerm=${term}`);
+    router.push(`/search/web?searchTerm=${input}`);
   }
 
   async function randomSearch() {
